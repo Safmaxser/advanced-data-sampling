@@ -35,7 +35,7 @@ SELECT a.name, release_date, COUNT(t.album_id)
   LEFT JOIN track AS t
     ON a.album_id = t.album_id
  WHERE EXTRACT (YEAR FROM release_date)
-	     BETWEEN 2019 AND 2020   
+       BETWEEN 2019 AND 2020   
  GROUP BY a.album_id;
 
 SELECT a.name, release_date, AVG(t.duration)
@@ -47,14 +47,14 @@ SELECT a.name, release_date, AVG(t.duration)
 SELECT pseudonym
   FROM songwriter AS s
   LEFT JOIN (SELECT s.songwriter_id
-  			       FROM songwriter AS s
-  		         JOIN singer_album AS sa
-    			       ON sa.songwriter_id = s.songwriter_id
-  		         JOIN album AS a
-    			       ON sa.album_id = a.album_id
- 			        WHERE EXTRACT (YEAR FROM a.release_date) = 2020
- 			        GROUP BY s.songwriter_id)	AS sample
- 	  ON s.songwriter_id = sample.songwriter_id
+  	       FROM songwriter AS s
+  	       JOIN singer_album AS sa
+    	         ON sa.songwriter_id = s.songwriter_id
+  	       JOIN album AS a
+    	         ON sa.album_id = a.album_id
+ 	      WHERE EXTRACT (YEAR FROM a.release_date) = 2020
+ 	      GROUP BY s.songwriter_id)	AS sample
+    ON s.songwriter_id = sample.songwriter_id
  WHERE sample.songwriter_id IS NULL
  GROUP BY s.songwriter_id;
 
@@ -103,10 +103,10 @@ SELECT a.name, COUNT(t.album_id)
     ON a.album_id = t.album_id
  GROUP BY a.name
 HAVING COUNT(t.album_id) = (SELECT COUNT(t.album_id)
-							                FROM album AS a
-							                JOIN track AS t
-							                	ON a.album_id = t.album_id
-							               GROUP BY a.name
-							               ORDER BY COUNT(t.album_id)
-							               LIMIT 1);
+			      FROM album AS a
+			      JOIN track AS t
+				ON a.album_id = t.album_id
+			     GROUP BY a.name
+			     ORDER BY COUNT(t.album_id)
+			     LIMIT 1);
  

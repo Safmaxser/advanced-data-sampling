@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS songwriter (
 CREATE TABLE IF NOT EXISTS singer_genres (
 	songwriter_id INTEGER REFERENCES songwriter(songwriter_id),
 	genres_id     INTEGER REFERENCES genres(genres_id),
-	              CONSTRAINT pk_singer_genres
+                  CONSTRAINT pk_singer_genres
                   PRIMARY KEY (songwriter_id, genres_id)
 );
 
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS album (
 CREATE TABLE IF NOT EXISTS singer_album (
 	songwriter_id INTEGER REFERENCES songwriter(songwriter_id),
 	album_id      INTEGER REFERENCES album(album_id),
-	              CONSTRAINT pk_songwriter_album
+                  CONSTRAINT pk_songwriter_album
                   PRIMARY KEY (songwriter_id, album_id)
 );
 
@@ -55,6 +55,6 @@ CREATE TABLE IF NOT EXISTS track (
 CREATE TABLE IF NOT EXISTS track_collection (
 	collection_id INTEGER REFERENCES collection(collection_id),
 	track_id      INTEGER REFERENCES track(track_id),
-	              CONSTRAINT pk_track_collection
+                  CONSTRAINT pk_track_collection
                   PRIMARY KEY (collection_id, track_id)
 );

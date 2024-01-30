@@ -20,8 +20,8 @@ SELECT pseudonym
  
 SELECT name
   FROM track
- WHERE LOWER(name) LIKE '%мой%'
-    OR LOWER(name) LIKE '%my%';
+ WHERE name iLIKE '%мой%'
+    OR name iLIKE '%my%';
     
 /* Задание 3 */
 SELECT name, COUNT(sg.songwriter_id)
@@ -55,8 +55,7 @@ SELECT pseudonym
  	      WHERE EXTRACT (YEAR FROM a.release_date) = 2020
  	      GROUP BY s.songwriter_id)	AS sample
     ON s.songwriter_id = sample.songwriter_id
- WHERE sample.songwriter_id IS NULL
- GROUP BY s.songwriter_id;
+ WHERE sample.songwriter_id IS NULL;
 
 SELECT c.name
   FROM collection AS c
@@ -68,8 +67,7 @@ SELECT c.name
     ON t.album_id = sa.album_id
   JOIN songwriter AS s
     ON sa.songwriter_id = s.songwriter_id 
- WHERE s.pseudonym = 'Высоцкий'
- GROUP BY c.name;
+ WHERE s.pseudonym = 'Высоцкий';
 
 /* Задание 4 */
 SELECT a.name, COUNT(sg.genres_id)
@@ -85,8 +83,7 @@ SELECT t.name
   FROM track AS t
   LEFT JOIN track_collection AS tc
     ON t.track_id = tc.track_id
- WHERE tc.track_id IS NULL
- GROUP BY t.name;
+ WHERE tc.track_id IS NULL;
 
 SELECT pseudonym
   FROM songwriter AS s
@@ -94,8 +91,7 @@ SELECT pseudonym
     ON s.songwriter_id = sa.songwriter_id
   JOIN track AS t
     ON sa.album_id = t.album_id
- WHERE t.duration = (SELECT MIN(duration) FROM track)
- GROUP BY s.songwriter_id;
+ WHERE t.duration = (SELECT MIN(duration) FROM track);
 
 SELECT a.name, COUNT(t.album_id)
   FROM album AS a
